@@ -1,0 +1,330 @@
+{
+ "cells": [
+  {
+   "cell_type": "heading",
+   "level": 1,
+   "metadata": {},
+   "source": [
+    "Raport z analizy ligand"
+   ]
+  },
+  {
+   "cell_type": "heading",
+   "level": 2,
+   "metadata": {},
+   "source": [
+    "Wstęp"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "W tym projekcie pod uwagę zostały wzięte dwa algorytmy klasyfikacji: SVC i Random Forest. Celem było przeanalizowanie ich skuteczności na zbiorze danych dotyczących ligand."
+   ]
+  },
+  {
+   "cell_type": "heading",
+   "level": 2,
+   "metadata": {},
+   "source": [
+    "Uczenie i testowanie"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "from svc_model import SvcModel\n",
+    "from random_forest_model import RandomForestModel\n",
+    "from loader import Loader\n",
+    "\n",
+    "X_train,y_train = Loader().load_train_set('~/ligandy_dane/all_summary.txt')\n",
+    "X_test = Loader().load_test_set('~/ligandy_dane/test_data.txt')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "heading",
+   "level": 3,
+   "metadata": {},
+   "source": [
+    "Pojedyncze wartości res_name"
+   ]
+  },
+  {
+   "cell_type": "heading",
+   "level": 5,
+   "metadata": {},
+   "source": [
+    "SVC"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python2.7/dist-packages/sklearn/cross_validation.py:516: Warning: The least populated class in y has only 3 members, which is too few. The minimum number of labels for any class cannot be less than n_folds=5.\n",
+      "  % (min_labels, self.n_folds)), Warning)\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "             precision    recall  f1-score   support\n",
+      "\n",
+      "        GOL       0.33      0.67      0.44         3\n",
+      "         MN       0.80      0.80      0.80         5\n",
+      "        OCS       0.00      0.00      0.00         7\n",
+      "        SO4       0.46      0.67      0.55         9\n",
+      "\n",
+      "avg / total       0.38      0.50      0.43        24\n",
+      "\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/usr/local/lib/python2.7/dist-packages/sklearn/metrics/classification.py:1076: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples.\n",
+      "  'recall', 'true', average, warn_for)\n",
+      "/usr/local/lib/python2.7/dist-packages/sklearn/metrics/classification.py:1074: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.\n",
+      "  'precision', 'predicted', average, warn_for)\n"
+     ]
+    }
+   ],
+   "source": [
+    "clf = SvcModel().learn(X_train, y_train, 'single.pk')\n",
+    "SvcModel().predict(clf, X_test, 'single.txt')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "heading",
+   "level": 5,
+   "metadata": {},
+   "source": [
+    "RandomForest"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "             precision    recall  f1-score   support\n",
+      "\n",
+      "        GOL       0.60      1.00      0.75         3\n",
+      "         MN       0.83      1.00      0.91         5\n",
+      "        OCS       0.00      0.00      0.00         7\n",
+      "        SO4       0.54      0.78      0.64         9\n",
+      "\n",
+      "avg / total       0.45      0.62      0.52        24\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "clf = RandomForestModel().learn(X_train, y_train, 'single.pk')\n",
+    "RandomForestModel().predict(clf, X_test, 'single.txt')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "heading",
+   "level": 3,
+   "metadata": {},
+   "source": [
+    "Pogrupowane wartości res_name"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "X_train,y_train = Loader().load_train_set_with_groups('~/ligandy_dane/all_summary.txt', '~/ligandy_dane/grouped_res_name.txt')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "heading",
+   "level": 5,
+   "metadata": {},
+   "source": [
+    "SVC"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "             precision    recall  f1-score   support\n",
+      "\n",
+      "         CA       0.00      0.00      0.00         6\n",
+      "         MG       0.00      0.00      0.00         2\n",
+      "SO4_PO4_CAC_NH4_ALF_VO4_CAD_WO4_TBU_2HP_MOO       0.38      1.00      0.55         8\n",
+      "         ZN       0.00      0.00      0.00         5\n",
+      "\n",
+      "avg / total       0.15      0.38      0.21        21\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "clf = SvcModel().learn(X_train, y_train, 'group.pk')\n",
+    "SvcModel().predict(clf, X_test, 'group.txt')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "heading",
+   "level": 5,
+   "metadata": {},
+   "source": [
+    "RandomForest"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "             precision    recall  f1-score   support\n",
+      "\n",
+      "         CA       0.43      0.50      0.46         6\n",
+      "         MG       0.00      0.00      0.00         2\n",
+      "SO4_PO4_CAC_NH4_ALF_VO4_CAD_WO4_TBU_2HP_MOO       0.40      0.50      0.44         8\n",
+      "         ZN       0.00      0.00      0.00         5\n",
+      "\n",
+      "avg / total       0.27      0.33      0.30        21\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "clf = RandomForestModel().learn(X_train, y_train, 'group.pk')\n",
+    "RandomForestModel().predict(clf, X_test, 'group.txt')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "heading",
+   "level": 2,
+   "metadata": {},
+   "source": [
+    "Podsumowanie"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Zdecydowanym faworytem okazał się RandomForest, który zdeklasował SVC."
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
